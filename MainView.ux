@@ -1,0 +1,66 @@
+<App>
+	<iOS.StatusBarConfig Style="Light" />
+
+	<JavaScript File="Geolocation.js" />
+	<JavaScript File="MainView.js" />
+
+
+	<EdgeNavigator>
+		<Panel ux:Name="sidebar" Edge="Left" Width="100%" Margin="0,0,56,0" Background="#37474F">
+			<Shadow ux:Name="shadow" Angle="180" Distance="8" Size="16" Color="#0000" />
+			<ActivatingAnimation>
+				<Change shadow.Color="#0004" />
+				<Change sidebarFade.Opacity="1" />
+			</ActivatingAnimation>
+		</Panel>
+
+		<DockPanel Color="#ffffff">
+			<Rectangle ux:Name="sidebarFade" Layer="Overlay" Color="#0005" Opacity="0" HitTestMode="None" />
+			<StackPanel Dock="Top" Color="#00a388">
+				<Shadow Size="3" Distance="1" />
+				<StatusBarBackground />
+				<Panel Height="56">
+					<Hamburger Alignment="Left">
+						<Clicked>
+							<NavigateToggle Target="sidebar" />
+						</Clicked>
+					</Hamburger>
+				</Panel>
+			</StackPanel>
+
+			<Grid Rows="6*,4*">
+	<Panel Row="1">
+		<Panel Alignment="Top">
+			<Panel Offset="0,-32.5" Width="65" Height="65">
+				<Clicked>
+					<Scale Factor="0.9" Duration="0.07" />
+					<Change cameraButtonColor.Color="#FF5788" Duration="0.07" />
+					<Callback Handler="{takePicture}" Delay="0.15" />
+				</Clicked>
+				<Image File="./icons/shape.png" Margin="18" />
+				<Circle Layer="Background">
+					<SolidColor ux:Name="cameraButtonColor" Color="#FC3768" />
+					<Shadow />
+				</Circle>
+			</Panel>
+		</Panel>
+	</Panel>
+
+	<Panel Row="0">
+		<Image ux:Name="picture" File="{picture}" StretchMode="UniformToFill"></Image>
+
+	</Panel>
+
+	<Panel Row="1">
+		<WhileTrue Value="{picture}">
+		<Button Text="Click me" />
+	</WhileTrue>
+		<Button Text="NO PIC CLICK" />
+	</Panel>
+
+
+
+</Grid>
+		</DockPanel>
+	</EdgeNavigator>
+</App>
